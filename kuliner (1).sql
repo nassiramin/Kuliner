@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 14 Sep 2017 pada 16.35
+-- Generation Time: 14 Sep 2017 pada 16.49
 -- Versi Server: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -31,6 +31,39 @@ CREATE TABLE `fasilitas` (
   `nama_fasilitas` varchar(100) NOT NULL,
   `url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `fasilitas`
+--
+
+INSERT INTO `fasilitas` (`id_fasilitas`, `nama_fasilitas`, `url`) VALUES
+(1, 'Wifi', ''),
+(2, 'Smoking Room', ''),
+(4, 'Live Musik', ''),
+(5, 'Rooftop', ''),
+(6, 'Outdoor', ''),
+(7, 'Tempat Ibadah', ''),
+(8, 'Toilet', '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `harga`
+--
+
+CREATE TABLE `harga` (
+  `id_harga` int(11) NOT NULL,
+  `harga` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `harga`
+--
+
+INSERT INTO `harga` (`id_harga`, `harga`) VALUES
+(1, '5.000-20.000'),
+(2, '20.000-50.000'),
+(4, '>50.000');
 
 -- --------------------------------------------------------
 
@@ -124,7 +157,7 @@ CREATE TABLE `tbl_tempat` (
   `close_time` time NOT NULL,
   `lat` double NOT NULL,
   `lng` double NOT NULL,
-  `harga` varchar(100) NOT NULL,
+  `id_harga` varchar(100) NOT NULL,
   `status` int(20) NOT NULL,
   `rating` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -133,7 +166,7 @@ CREATE TABLE `tbl_tempat` (
 -- Dumping data untuk tabel `tbl_tempat`
 --
 
-INSERT INTO `tbl_tempat` (`id_tempat`, `nama_tempat`, `alamat`, `no_telp`, `deskripsi`, `id_kategori_tempat`, `url`, `open_time`, `close_time`, `lat`, `lng`, `harga`, `status`, `rating`) VALUES
+INSERT INTO `tbl_tempat` (`id_tempat`, `nama_tempat`, `alamat`, `no_telp`, `deskripsi`, `id_kategori_tempat`, `url`, `open_time`, `close_time`, `lat`, `lng`, `id_harga`, `status`, `rating`) VALUES
 (1001, 'DON KALIBER 12', 'Jl. Kaliurang No.4-7, Sardonoharjo, Ngaglik, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55581', '0274-2800008', '  Manly culinary spot at northern Jogja. \r\nDisini ada beberapa tenant makanan yang bisa kalian coba :\r\n- twelve monkey\r\n- bubur bulan\r\n- muther panzer\r\n- mie ronggeng\r\n- elliot ness\r\n- don appetite\r\n- madam sus\r\n  ', 'Restaurant', 'DONKALIBER12.jpg', '10:00:00', '11:00:00', -7.707813, 110.410558, '', 0, 0),
 (1002, 'Martabak Sematjam Warunk', ' Jl.PERUMNAS seturan raya 158 (depan balihai/goebox cafe)sleman jogjakarta', '081222236517', 'Tersedia Berbagai Menu (Martabak,terang bulan,crepes, tipker, nasgor rempah, roti, dimsum, coffe, milk, Noodle kekinian dll)', 'Cake and Bakery', 'MartabakSematjamWarunk.jpg', '03:00:00', '12:00:00', -7.77242, 110.404911, '', 0, 0),
 (1003, 'Soto Ayam Ambengan Cak Ndhut', 'Jl. Parangtritis No.186, Bangunharjo, Sewon, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55187', ' 08111 8111 76', '   Soto denganbumbu rempah nya kenceng, kuah nya tasty dan PAKE KOYA . Porsiannya juga banyak lagi, harga satu porsi soto special dengan isian daging, kulit, telor muda & uritan dibandrol harga 13.000 aja gaes . Wajib cobain nih kalau kalian termasuk penikmat soto   ', 'Kaki Lima', 'SotoAyamAmbeganCakNdhut.jpg', '07:00:00', '09:00:00', -7.827, 110.367372, '', 0, 0),
@@ -188,6 +221,12 @@ ALTER TABLE `fasilitas`
   ADD PRIMARY KEY (`id_fasilitas`);
 
 --
+-- Indexes for table `harga`
+--
+ALTER TABLE `harga`
+  ADD PRIMARY KEY (`id_harga`);
+
+--
 -- Indexes for table `jenis_pengguna`
 --
 ALTER TABLE `jenis_pengguna`
@@ -231,7 +270,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `fasilitas`
 --
 ALTER TABLE `fasilitas`
-  MODIFY `id_fasilitas` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_fasilitas` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `harga`
+--
+ALTER TABLE `harga`
+  MODIFY `id_harga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `jenis_pengguna`
 --
