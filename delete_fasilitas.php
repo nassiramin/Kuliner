@@ -2,18 +2,18 @@
 
 include("koneksi.php");
 
-if( isset($_GET['id_tempat']) ){
+if( isset($_GET['id_fasilitas']) ){
 
 	// ambil id dari query string
-	$id_tempat = $_GET['id_tempat'];
+	$id_fasilitas = $_GET['id_fasilitas'];
 
 	// buat query hapus
-	$sql = "DELETE FROM tempat WHERE id_tempat=$id_tempat";
+	$sql = "DELETE FROM fasilitas WHERE id_fasilitas=$id_fasilitas";
 	$query = mysql_query($sql,$koneksi);
 
 	// apakah query hapus berhasil?
 	if( $query ){
-		header('Location: data.php');
+		header('Location: fasilitas.php');
 	} else {
 		die("gagal menghapus...");
 	}

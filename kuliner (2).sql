@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 14 Sep 2017 pada 16.49
+-- Generation Time: 18 Sep 2017 pada 12.21
 -- Versi Server: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -37,13 +37,13 @@ CREATE TABLE `fasilitas` (
 --
 
 INSERT INTO `fasilitas` (`id_fasilitas`, `nama_fasilitas`, `url`) VALUES
-(1, 'Wifi', ''),
-(2, 'Smoking Room', ''),
-(4, 'Live Musik', ''),
-(5, 'Rooftop', ''),
-(6, 'Outdoor', ''),
-(7, 'Tempat Ibadah', ''),
-(8, 'Toilet', '');
+(101, 'Wifi', 'wifi-connection-signal-symbol (1).png'),
+(102, 'Smoking Room', 'cigarette.png'),
+(103, 'Live Music', 'live-show-microphone.png'),
+(104, 'Rooftop', 'broken-roof.png'),
+(105, 'Outdoor', 'picnic.png'),
+(106, 'Tempat Ibadah', 'window.png'),
+(107, 'Tempat Meeting', 'meeting-room.png');
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE `harga` (
 INSERT INTO `harga` (`id_harga`, `harga`) VALUES
 (1, '5.000-20.000'),
 (2, '20.000-50.000'),
-(4, '>50.000');
+(3, '>50.000');
 
 -- --------------------------------------------------------
 
@@ -93,11 +93,11 @@ CREATE TABLE `kategori_tempat` (
 --
 
 INSERT INTO `kategori_tempat` (`id_kategori_tempat`, `nama_kategori_tempat`, `url`) VALUES
-(1, 'Restaurant', ''),
-(2, 'Cafe', ''),
-(3, 'Kaki Lima', ''),
-(4, 'FoodCourt', ''),
-(5, 'Cake and Bakery', '');
+(101, 'Restaurant / Tempat Makan', 'makan.jpg'),
+(102, 'Coffeshop', 'coffe.jpg'),
+(103, 'Kaki Lima', 'kakilima.jpg'),
+(104, 'FoodCourt', 'foodcourt.jpg'),
+(105, 'Cake and Bakery', 'cake.jpg');
 
 -- --------------------------------------------------------
 
@@ -142,10 +142,10 @@ CREATE TABLE `review` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_tempat`
+-- Struktur dari tabel `tempat`
 --
 
-CREATE TABLE `tbl_tempat` (
+CREATE TABLE `tempat` (
   `id_tempat` int(20) NOT NULL,
   `nama_tempat` varchar(100) NOT NULL,
   `alamat` text NOT NULL,
@@ -163,16 +163,18 @@ CREATE TABLE `tbl_tempat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_tempat`
+-- Dumping data untuk tabel `tempat`
 --
 
-INSERT INTO `tbl_tempat` (`id_tempat`, `nama_tempat`, `alamat`, `no_telp`, `deskripsi`, `id_kategori_tempat`, `url`, `open_time`, `close_time`, `lat`, `lng`, `id_harga`, `status`, `rating`) VALUES
+INSERT INTO `tempat` (`id_tempat`, `nama_tempat`, `alamat`, `no_telp`, `deskripsi`, `id_kategori_tempat`, `url`, `open_time`, `close_time`, `lat`, `lng`, `id_harga`, `status`, `rating`) VALUES
 (1001, 'DON KALIBER 12', 'Jl. Kaliurang No.4-7, Sardonoharjo, Ngaglik, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55581', '0274-2800008', '  Manly culinary spot at northern Jogja. \r\nDisini ada beberapa tenant makanan yang bisa kalian coba :\r\n- twelve monkey\r\n- bubur bulan\r\n- muther panzer\r\n- mie ronggeng\r\n- elliot ness\r\n- don appetite\r\n- madam sus\r\n  ', 'Restaurant', 'DONKALIBER12.jpg', '10:00:00', '11:00:00', -7.707813, 110.410558, '', 0, 0),
 (1002, 'Martabak Sematjam Warunk', ' Jl.PERUMNAS seturan raya 158 (depan balihai/goebox cafe)sleman jogjakarta', '081222236517', 'Tersedia Berbagai Menu (Martabak,terang bulan,crepes, tipker, nasgor rempah, roti, dimsum, coffe, milk, Noodle kekinian dll)', 'Cake and Bakery', 'MartabakSematjamWarunk.jpg', '03:00:00', '12:00:00', -7.77242, 110.404911, '', 0, 0),
 (1003, 'Soto Ayam Ambengan Cak Ndhut', 'Jl. Parangtritis No.186, Bangunharjo, Sewon, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55187', ' 08111 8111 76', '   Soto denganbumbu rempah nya kenceng, kuah nya tasty dan PAKE KOYA . Porsiannya juga banyak lagi, harga satu porsi soto special dengan isian daging, kulit, telor muda & uritan dibandrol harga 13.000 aja gaes . Wajib cobain nih kalau kalian termasuk penikmat soto   ', 'Kaki Lima', 'SotoAyamAmbeganCakNdhut.jpg', '07:00:00', '09:00:00', -7.827, 110.367372, '', 0, 0),
 (1004, 'Mom Milk', 'Jl. Kranggan, Cokrodiningratan, Jetis, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55233', '0899-3663-666', '  Best Milk from Solo. ðŸ“Solo, Semarang, Jakarta Barat, Bekasi, Malang. ', 'Cafe', 'MomMilk.jpg', '11:00:00', '11:00:00', -7.781629, 110.364885, '', 0, 0),
 (1005, 'Kedai Roti Bakar 543 ', 'Angkringan Jentik, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281', '081223335739', '   Roti Bakar â€¢ Susu Segar â€¢ Indomie â€¢ Rice Bowl â€¢ Dessert      ', 'Restaurant', 'KedaiRotiBakar543Jogja.jpg', '10:00:00', '12:00:00', -7.771697, 110.406157, '', 0, 0),
-(1006, 'sfas', 'fsafsf', 'sdasdd', '  dsadas  ', 'Please Select', '1515194_1416106622031981_350304391_n.jpg', '00:00:00', '00:00:00', -7.76433, 110.41119, '', 0, 0);
+(1006, 'dasd', 'dasdas', '32132', '  asdasd', 'Kaki Lima', '', '05:00:00', '06:00:00', 3213, 12312, '', 0, 0),
+(1007, 'sadasd', 'sadasd', 'sadasd', '  dsadasdasd', 'Kaki Lima', '', '04:00:00', '06:00:00', 2312321, 213123123, '', 0, 0),
+(1008, 'dsadasd', 'dasd', 'dsad', '  sadsa', 'FoodCourt', '', '12:00:00', '06:00:00', 0, 0, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -251,9 +253,9 @@ ALTER TABLE `review`
   ADD PRIMARY KEY (`id_review`);
 
 --
--- Indexes for table `tbl_tempat`
+-- Indexes for table `tempat`
 --
-ALTER TABLE `tbl_tempat`
+ALTER TABLE `tempat`
   ADD PRIMARY KEY (`id_tempat`);
 
 --
@@ -270,12 +272,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `fasilitas`
 --
 ALTER TABLE `fasilitas`
-  MODIFY `id_fasilitas` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_fasilitas` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 --
 -- AUTO_INCREMENT for table `harga`
 --
 ALTER TABLE `harga`
-  MODIFY `id_harga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_harga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `jenis_pengguna`
 --
@@ -285,7 +287,7 @@ ALTER TABLE `jenis_pengguna`
 -- AUTO_INCREMENT for table `kategori_tempat`
 --
 ALTER TABLE `kategori_tempat`
-  MODIFY `id_kategori_tempat` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_kategori_tempat` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 --
 -- AUTO_INCREMENT for table `relasi_tempat_fasilitas`
 --
@@ -297,10 +299,10 @@ ALTER TABLE `relasi_tempat_fasilitas`
 ALTER TABLE `review`
   MODIFY `id_review` int(20) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `tbl_tempat`
+-- AUTO_INCREMENT for table `tempat`
 --
-ALTER TABLE `tbl_tempat`
-  MODIFY `id_tempat` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1007;
+ALTER TABLE `tempat`
+  MODIFY `id_tempat` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1009;
 --
 -- AUTO_INCREMENT for table `users`
 --

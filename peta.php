@@ -40,7 +40,7 @@ $data = file_get_contents('http://localhost/kuliner/ambildata.php');
                   $obj = json_decode($data);
                   foreach($obj->results as $item){
 ?>
-[<?php echo $item->id_tempat ?>,'<?php echo $item->nama ?>','<?php echo $item->alamat_tempat ?>', <?php echo $item->lng ?>, <?php echo $item->lat ?>],
+[<?php echo $item->id_tempat ?>,'<?php echo $item->nama_tempat ?>','<?php echo $item->alamat ?>', <?php echo $item->lng ?>, <?php echo $item->lat ?>],
 <?php 
 }
 } 

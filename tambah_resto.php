@@ -5,7 +5,7 @@ include_once "koneksi.php";
 include 'koneksi.php';
 $get=mysql_query("SELECT * FROM kategori_tempat");
 
-$query = "SELECT id_tempat FROM tbl_tempat ORDER BY id_tempat DESC LIMIT 1";
+$query = "SELECT id_tempat FROM tempat ORDER BY id_tempat DESC LIMIT 1";
 $result = mysql_query($query, $koneksi);
 $row = mysql_fetch_array($result);
 $last_id = $row["id_tempat"];
@@ -133,40 +133,41 @@ initialize();
 
   <div class="form-group">
     <label class="col-form-label" for="nama">Nama </label>
-   <input type="text" class="form-control" name="nama" id="nama" required placeholder="Nama" > 
+   <input type="text" class="form-control" name="nama_tempat" id="nama" required placeholder="Nama" > 
   </div>
 
    <div class="form-group">
     <label class="col-form-label" for="id_kategori">Kategori </label>
-      <select  name="id_kategori" class="form-control"> 
+      <select  name="id_kategori_tempat" class="form-control"> 
     <option>Please Select</option>
         <?php
             while($row = mysql_fetch_assoc($get))
             {
             ?>
-            <option  value = "<?php echo($row['nama_kategori'])?>" >
-                <?php echo($row['nama_kategori']) ?>
+            <option  value = "<?php echo($row['nama_kategori_tempat'])?>" >
+                <?php echo($row['nama_kategori_tempat']) ?>
             </option>
             <?php
             }               
         ?>
+
     </select>
 
   </div>
  
   <div class="form-group">
     <label class="col-form-label"  for="alamat_tempat">Alamat</label>  
-   <input type="text" class="form-control" name="alamat_tempat" id="alamat_tempat" required placeholder="Alamat"/>
+   <input type="text" class="form-control" name="alamat" id="alamat_tempat" required placeholder="Alamat"/>
   </div>
 
   <div class="form-group">
     <label class="col-form-label"  for="no_tempat">No.Telp</label>
-   <input type="text" class="form-control" name="no_tempat" id="no_tempat" required placeholder=""/>
+   <input type="text" class="form-control" name="no_telp" id="no_tempat" required placeholder=""/>
   </div>
 
   <div class="form-group">
     <label  for="deskripsi_tempat">Deskripsi Tempat</label>
-   <textarea type="text" class="form-control" name="deskripsi_tempat" id="deskripsi_tempat" rows="3" >
+   <textarea type="text" class="form-control" name="deskripsi" id="deskripsi_tempat" rows="3" >
   </textarea> 
   </div>
 
@@ -194,53 +195,41 @@ initialize();
   </div>
 </div>
 
+
 <div class="form-group">
   <div class="form-group col-md-6">
       <label class="col-form-label" for="id_tempat">Fasilitas</label>
-      
         <div class="form-check">
-      <label class="form-check-label">
-        <input type="hidden" name="wifi" value="no">
-        <input class="form-check-input" name="wifi" type="checkbox" value="yes"> Wifi
-      </label>
-    </div>
-     <div class="form-check">
-      <label class="form-check-label">
-        <input type="hidden" name="smoking" value="no">
-        <input class="form-check-input" name="smoking" type="checkbox" value="yes"> Smoking Area
-      </label>
-    </div>
-     <div class="form-check">
-      <label class="form-check-label">
-        <input type="hidden" name="happy_hours" value="no">
-        <input class="form-check-input" name="happy_hours"  type="checkbox" value="yes"> Happy Hours
-      </label>
-    </div>
-     <div class="form-check">
-      <label class="form-check-label">
-        <input type="hidden" name="live_musik" value="no">
-        <input class="form-check-input" name="live_musik" type="checkbox" value="yes"> Live Musik
-      </label>
-    </div>
-     <div class="form-check">
-      <label class="form-check-label">
-        <input type="hidden" name="rooftop" value="no">
-        <input class="form-check-input" name="rooftop" type="checkbox" value="yes"> Rooftop
-      </label>
-    </div>
-     <div class="form-check">
-      <label class="form-check-label">
-        <input type="hidden" name="outdoor" value="no">
-        <input class="form-check-input" name="outdoor" type="checkbox" value="yes"> Outdoor
-      </label>
-    </div>
-        
-     </div>
-    </div>
+          <label class="form-check-label">
+              <table class="table ">
+       <?php
+          $query= mysql_query("select * from fasilitas");
+          while($hasil=mysql_fetch_array($query)){
+       ?>
+          <tr>
+           <td>
+                <input type="checkbox" class="form-check-input" name="relasi_tempat_fasilitas[]" 
+                value="<?php echo $hasil['id_fasilitas']?>">
+          </td>
+           <td>
+                <?php echo $hasil['nama_fasilitas']?>
+          </td>
+          </tr>
+       <?php
+         }
+       ?>
+              </table>
+            </label>
+          </div>
+  </div>
+</div>
+
+
+
 
 <div class="form-group">
     <label class="custom-file" >Foto
-    <input class="custom-file-input" type="file" name="gambar" placeholder="foto" />
+    <input class="custom-file-input" type="file" name="url" placeholder="foto" />
     <span class="custom-file-control"></span>
 
  </div>

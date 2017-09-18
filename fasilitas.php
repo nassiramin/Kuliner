@@ -12,20 +12,19 @@ include_once "koneksi.php";  ?>
             </div>
             <div class="panel-body">
               <div class="table-responsive">
-              <table id="myTable" class="table table-bordered table-striped table-admin" width="100%">
+              <table id="" class="table table-bordered table-admin" width="100%">
               <thead>
                 <tr>
-                  <th width="5%">No.</th>
-                  <th width="20%">Nama </th>
-                  <th width="25%">Alamat</th>
-                  <th width="13%">Kategori</th>
-                  <th width="15%">Foto</th>
-                  <th width="32%">Aksi</th>
+                  <th width="10%">No.</th>
+                  <th width="10%" >ID Fasilitas </th>
+                  <th >Nama</th>
+                  <th width="10%">Icon</th>
+                  <th width="15%">Aksi</th>
                 </tr>
               </thead>
               <tbody>
               <?php
-                $data = file_get_contents('http://localhost/kuliner/ambildata.php');
+                $data = file_get_contents('http://localhost/kuliner/ambildata_fasilitas.php');
                 $no=1;
                 if(json_decode($data,true)){
                   $obj = json_decode($data);
@@ -33,19 +32,16 @@ include_once "koneksi.php";  ?>
               ?>
               <tr>
                 <td><?php echo $no; ?></td>
-                <td><?php echo $item->nama_tempat; ?></td>
-                <td><?php echo $item->alamat; ?></td>
-                <td><?php echo $item->id_kategori_tempat; ?></td>
-                <td><img src="upload_foto/<?php echo $item->url; ?>" width="150" height="150" class="img-thumbnail"/></td>
+                <td><?php echo $item->id_fasilitas; ?></td>
+                <td><?php echo $item->nama_fasilitas; ?></td>
+                <td><img src="upload_foto/icon_fasilitas/<?php echo $item->url; ?>" width="60" height="60" class="img-thumbnail"/></td>
                 <td class="ctr">
                   <div align="center">
-                    <a target="_blank" href="detail.php?id=<?php echo $item->id_tempat; ?>" rel="tooltip" 
-                      data-original-title="Lihat File" data-placement="top" class="btn btn-primary btn-sm">
-                    <span class="fa fa-map-marker"> </span>&nbsp;Detail </a> | 
-                    <a href="edit_resto.php?id=<?php echo $item->id_tempat; ?>"class="btn btn-success btn-sm" >
+                   
+                    <a href="edit_fasilitas.php?id=<?php echo $item->id_fasilitas; ?>"class="btn btn-success btn-sm" >
                       <span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a> | 
-      <a href="delete_resto.php?id_tempat=<?php echo $item->id_tempat; ?>" class="btn btn-danger btn-sm"
-       OnClick="return confirm('Anda Yakin akan menghapus <?php echo $item->nama_tempat; ?> ?')">
+      <a href="delete_fasilitas.php?id_fasilitas=<?php echo $item->id_fasilitas; ?>" class="btn btn-danger btn-sm"
+       OnClick="return confirm('Anda Yakin akan menghapus fasilitas <?php echo $item->nama_fasilitas; ?> ?')">
        <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
                    
                   </div>

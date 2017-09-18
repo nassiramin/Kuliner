@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/datatable-bootstrap.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
+    <script src="js/jquery.min.js"></script>
+
   </head>
   <body>
     <div class="footer footer2">
@@ -42,10 +44,32 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.php"><i class="fa fa-home"></i> HALAMAN DEPAN</a></li>
-            <li><a href="data.php"><i class="fa fa-list-ul"></i> DATA KULINER</a></li>
-            <li><a href="peta.php"><i class="fa fa-map-marker"></i> PETA PERSEBARAN KULINER</a></li>
-            <li><a href="about.php" data-toggle="modal" data-target="#about"><i class="fa fa-user"></i> ABOUT</a></li>
+            <li><a href="index.php"><i class="fa fa-home"></i> Halaman Depan</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-th-list"></i>Olah Data </a> 
+                   <ul class="dropdown-menu">
+            <li><a href="data.php">Data Kuliner</a></li>
+            <li><a href="fasilitas.php">Data Fasilitas</a></li>
+            <li><a href="kategori.php">Data Kategori</a></li>
+             <li role="presentation" class="divider"></li>
+            <li><a href="#">Data User</a></li>
+          </ul>
+       </li>
+
+       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-plus"></i>Tambah Data </a> 
+                   <ul class="dropdown-menu">
+            <li><a href="tambah_resto.php">Tambah Kuliner</a></li>
+            <li><a href="tambah_fasilitas.php">Tambah Fasilitas</a></li>
+            <li><a href="tambah_kategori.php">Tambah Kategori</a></li>
+             <li role="presentation" class="divider"></li>
+            <li><a href="#">Tambah User</a></li>
+          </ul>
+       </li>
+
+          
+            <li><a href="peta.php"><i class="fa fa-map-marker"></i> Peta Persebaran Kuliner</a></li>
+            <li><a href="about.php" data-toggle="modal" data-target="#about"><i class="fa fa-user"></i> About</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </nav>
+
+     

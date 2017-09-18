@@ -1,36 +1,33 @@
 
+
 <?php
 
     $id_tempat= $_POST['id_tempat'];
-	$nama= $_POST['nama'];
-	$alamat_tempat	= $_POST['alamat_tempat'];
-	$deskripsi_tempat	= $_POST['deskripsi_tempat'];
-	$no_tempat	= $_POST['no_tempat'];
-	$id_kategori = $_POST ['id_kategori'];
+	$nama_tempat= $_POST['nama_tempat'];
+	$alamat	= $_POST['alamat'];
+	$deskripsi	= $_POST['deskripsi'];
+	$no_telp	= $_POST['no_telp'];
+	$id_kategori_tempat = $_POST ['id_kategori_tempat'];
 	$open_time= $_POST['open_time'];
 	$close_time= $_POST['close_time'];
 	$lat= $_POST['lat'];
 	$lng= $_POST['lng'];
-	$wifi=$_POST['wifi'];
-	$smoking=$_POST['smoking'];
-	$happy_hours=$_POST['happy_hours'];
-	$live_musik=$_POST['live_musik'];
-	$rooftop=$_POST['rooftop'];
-	$outdoor=$_POST['outdoor'];
-	$gambar= $_FILES['gambar']['name'];
+	$url= $_FILES['url']['name'];
 
-		if (strlen($gambar)>0) {
+		if (strlen($url)>0) {
 		//upload Photo
-		if (is_uploaded_file($_FILES['gambar']['tmp_name'])) {
-			move_uploaded_file ($_FILES['gambar']['tmp_name'],"upload_foto/".$gambar);
+		if (is_uploaded_file($_FILES['url']['tmp_name'])) {
+			move_uploaded_file ($_FILES['url']['tmp_name'],"upload_foto/".$url);
 		}
 	}
 
-	if (empty($_POST['id_tempat'])|| empty($_POST['nama'])) {
+	if (empty($_POST['id_tempat'])|| empty($_POST['nama_tempat'])) {
 ?>
 	<script language="JavaScript">
 		alert('Data Harap Dilengkapi');
 	</script>
+
+
 <?php
 	}
 	//Jika Validasi Terpenuhi
@@ -52,7 +49,9 @@
 		print ("Database Connected<br><br>");
 		}
 
-$cek=mysql_num_rows (mysql_query("SELECT id_tempat FROM tbl_tempat WHERE id_tempat='$_POST[id_tempat]'"));
+
+
+$cek=mysql_num_rows (mysql_query("SELECT id_tempat FROM tempat WHERE id_tempat='$_POST[id_tempat]'"));
 if ($cek > 0) {
 ?>
 		<script language="JavaScript">
@@ -62,10 +61,8 @@ if ($cek > 0) {
 <?php
 }
 //Masukan data ke Table Karyawan
-$input	= "INSERT INTO tbl_tempat (id_tempat,nama,alamat_tempat,no_tempat,deskripsi_tempat,id_kategori,gambar,open_time,close_time,lat,lng,
-	wifi,smoking,happy_hours,live_musik,rooftop,outdoor)
-	VALUES ('$id_tempat','$nama','$alamat_tempat','$no_tempat','$deskripsi_tempat','$id_kategori','$gambar','$open_time','$close_time','$lat','$lng',
-		'$wifi','$smoking','$happy_hours','$live_musik','$rooftop','$outdoor')" ;
+$input	= "INSERT INTO tempat (id_tempat,nama_tempat,alamat,no_telp,deskripsi,id_kategori_tempat,url,open_time,close_time,lat,lng)
+	VALUES ('$id_tempat','$nama_tempat','$alamat','$no_telp','$deskripsi','$id_kategori_tempat','$url','$open_time','$close_time','$lat','$lng')" ;
 $query_input =mysql_query($input);
 	if ($query_input) {
 	//Jika Sukses
@@ -86,10 +83,6 @@ $query_input =mysql_query($input);
 	}
 
 ?>
-
-
-
-
 
 
 
