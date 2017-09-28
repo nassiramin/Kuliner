@@ -3,7 +3,8 @@ $title = "Admin Food Patrol";
 include_once "header.php";
 include_once "koneksi.php"; 
 include 'koneksi.php';
-$get=mysql_query("SELECT * FROM kategori_tempat");
+$get1=mysql_query("SELECT * FROM kategori_tempat");
+$get2=mysql_query("SELECT * FROM harga");
 
 $query = "SELECT id_tempat FROM tempat ORDER BY id_tempat DESC LIMIT 1";
 $result = mysql_query($query, $koneksi);
@@ -137,15 +138,34 @@ initialize();
   </div>
 
    <div class="form-group">
-    <label class="col-form-label" for="id_kategori">Kategori </label>
+    <label class="col-form-label" for="id_kategori_tempat">Kategori </label>
       <select  name="id_kategori_tempat" class="form-control"> 
     <option>Please Select</option>
         <?php
-            while($row = mysql_fetch_assoc($get))
+            while($row = mysql_fetch_assoc($get1))
             {
             ?>
-            <option  value = "<?php echo($row['nama_kategori_tempat'])?>" >
+            <option  value = "<?php echo($row['id_kategori_tempat'])?>" >
                 <?php echo($row['nama_kategori_tempat']) ?>
+            </option>
+            <?php
+            }               
+        ?>
+
+    </select>
+
+  </div>
+
+  <div class="form-group">
+    <label class="col-form-label" for="harga">Harga </label>
+      <select  name="id_harga" class="form-control"> 
+    <option>Please Select</option>
+        <?php
+            while($row = mysql_fetch_assoc($get2))
+            {
+            ?>
+            <option  value = "<?php echo($row['id_harga'])?>" >
+                <?php echo($row['harga']) ?>
             </option>
             <?php
             }               
@@ -208,7 +228,7 @@ initialize();
        ?>
           <tr>
            <td>
-                <input type="checkbox" class="form-check-input" name="relasi_tempat_fasilitas[]" 
+                <input type="checkbox" class="form-check-input" name="fasilitas[]" 
                 value="<?php echo $hasil['id_fasilitas']?>">
           </td>
            <td>

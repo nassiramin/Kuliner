@@ -2,45 +2,36 @@
 $id = $_GET['id'];
 include_once "header.php";
 include_once "ambildata_id.php";
-$get=mysql_query("SELECT * FROM kategori_tempat");
+$get1=mysql_query("SELECT * FROM kategori_tempat");
+$get2=mysql_query("SELECT * FROM harga");
 $obj = json_decode($data);
-$titles="";
-$idt="";
-$almt="";
-$des="";
-$no="";
+$nama_tempat="";
+$id_tempat="";
+$alamat="";
+$deskripsi="";
+$no_telp="";
 $open_time="";
 $close_time="";
-$foto="";
+$url="";
 $lat="";
 $long="";
-$wifi="";
-$smoking="";
-$happy_hours="";
-$live_musik="";
-$rooftop="";
-$outdoor="";
-$id_kategori="";
+$id_kategori_tempat="";
+$id_harga="";
 foreach($obj->results as $item){
-  $titles.=$item->nama;
-  $idt.=$item->id_tempat;
-  $almt.=$item->alamat_tempat;
-  $des.=$item->deskripsi_tempat;
-  $no.=$item->no_tempat;
+  $nama_tempat.=$item->nama_tempat;
+  $id_tempat.=$item->id_tempat;
+  $alamat.=$item->alamat;
+  $deskripsi.=$item->deskripsi;
+  $no_telp.=$item->no_telp;
   $open_time.=$item->open_time;
   $close_time.=$item->close_time;
-  $foto.=$item->gambar;
+  $url.=$item->url;
   $lat.=$item->lat;
   $long.=$item->lng;
-  $wifi.=$item->wifi;
-  $smoking.=$item->smoking;
-  $happy_hours.=$item->happy_hours;
-  $live_musik.=$item->live_musik;
-  $rooftop.=$item->rooftop;
-  $outdoor.=$item->outdoor;
-  $id_kategori.=$item->id_kategori;
+  $id_kategori_tempat.=$item->id_kategori_tempat;
+  $id_harga.=$item->id_harga;
 }
-$title = "Edit : ".$titles;
+$title = "Edit : ".$nama_tempat;
 
 
 ?>
@@ -140,45 +131,66 @@ initialize();
              
    <div class="form-group">
     <label class="col-form-label" for="id_tempat">ID Tempat</label>
-   <input type="text" class="form-control" name="id_tempat" id="id_tempat"  placeholder="ID"  readonly="readonly" value="<?php echo $idt; ?>"> 
+   <input type="text" class="form-control" name="id_tempat" id="id_tempat"  placeholder="ID"  readonly="readonly" value="<?php echo $id_tempat; ?>"> 
   </div>
 
   <div class="form-group">
     <label class="col-form-label" for="nama">Nama </label>
-   <input type="text" class="form-control" name="nama" id="nama" required placeholder="Nama" value="<?php echo $titles; ?>" > 
+   <input type="text" class="form-control" name="nama_tempat" id="nama" required placeholder="Nama" value="<?php echo $nama_tempat; ?>" > 
   </div>
 
    <div class="form-group">
     <label class="col-form-label" for="id_kategori">Kategori </label>
 
-      <select  name="id_kategori" class="form-control"> 
-    <option><?php echo $id_kategori; ?></option>
-
+      <select  name="id_kategori_tempat" class="form-control"> 
+    <option><?php echo $id_kategori_tempat; ?></option>
+s
         <?php
-            while($row = mysql_fetch_assoc($get))
+            while($row = mysql_fetch_assoc($ge1))
             {
             ?>
-            <option  value = "<?php echo($row['nama_kategori'])?>" >
-                <?php echo($row['nama_kategori']) ?>
+            <option  value = "<?php echo($row['id_kategori_tempat'])?>" >
+                <?php echo($row['nama_kategori_tempat']) ?>
             </option>
             <?php
             }               
         ?>
     </select>
+  </div>
+
+     <div class="form-group">
+    <label class="col-form-label" for="harga">Harga </label>
+      <select  name="id_harga" class="form-control"> 
+    <option><?php echo $id_harga; ?></option>
+        <?php
+            while($row = mysql_fetch_assoc($get2))
+            {
+            ?>
+            <option  value = "<?php echo($row['id_harga'])?>" >
+                <?php echo($row['harga']) ?>
+            </option>
+            <?php
+            }               
+        ?>
+
+    </select>
+
+  </div>
+ 
  
   <div class="form-group">
     <label class="col-form-label"  for="alamat_tempat">Alamat</label>  
-   <input type="text" class="form-control" name="alamat_tempat" id="alamat_tempat" required placeholder="Alamat" value="<?php echo $almt; ?>"/>
+   <input type="text" class="form-control" name="alamat" id="alamat_tempat" required placeholder="Alamat" value="<?php echo $alamat; ?>"/>
   </div>
 
   <div class="form-group">
     <label class="col-form-label"  for="no_tempat">No.Telp</label>
-   <input type="text" class="form-control" name="no_tempat" id="no_tempat" required placeholder="" value="<?php echo $no; ?>"/>
+   <input type="text" class="form-control" name="no_telp" id="no_tempat" required placeholder="" value="<?php echo $no_telp; ?>"/>
   </div>
 
   <div class="form-group">
     <label  for="deskripsi_tempat">Deskripsi Tempat</label>
-   <textarea type="text" class="form-control" name="deskripsi_tempat" id="deskripsi_tempat" rows="3" ><?php echo $des; ?>
+   <textarea type="text" class="form-control" name="deskripsi" id="deskripsi_tempat" rows="3" ><?php echo $deskripsi; ?>
   </textarea> 
   </div>
 
@@ -206,7 +218,7 @@ initialize();
   </div>
 </div>
 
-<div class="form-group">
+<!-- <div class="form-group">
   <div class="form-group col-md-6">
       <label class="col-form-label" for="id_tempat">Fasilitas</label>
         <div class="form-check">
@@ -248,13 +260,13 @@ initialize();
     </div>
         
      </div>
-    </div>
+    </div> -->
 
 <div class="form-group">
     <label class="custom-file" >Foto</label>
-    <img src="upload_foto/<?=$foto?>" width="200" height="200" class="img-thumbnail"/>
-    <input class="custom-file-input" type="file" name="gambar" placeholder="foto"  />
-    <input type="hidden" name="gambar" value="<?php echo $gambar; ?>" />
+    <img src="upload_foto/<?=$url?>" width="200" height="200" class="img-thumbnail"/>
+    <input class="custom-file-input" type="file" name="url" placeholder="foto"  />
+    <input type="hidden" name="url" value="<?php echo $url; ?>" />
     <span class="custom-file-control"></span>
 
  </div>

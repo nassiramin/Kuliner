@@ -14,6 +14,7 @@ $close_time="";
 $foto="";
 $lat="";
 $long="";
+$id_harga="";
 
 $id_kategori="";
 foreach($obj->results as $item){
@@ -27,8 +28,10 @@ foreach($obj->results as $item){
   $foto.=$item->url;
   $lat.=$item->lat;
   $long.=$item->lng;
+  $id_harga.=$item->id_harga;
   $id_kategori.=$item->id_kategori_tempat;
 }
+
 
 $title = "Detail dan Lokasi : ".$titles;
 include_once "header.php"; ?>
@@ -122,6 +125,12 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <?php echo $almt ?>
    </td>
       </tr>
+      <tr class="form-group">
+    <td><label class="col-form-label" for="id_tempat">Harga</label></td>
+   <td>
+    <?php echo $id_harga ?>
+   </td>
+      </tr>
         <tr class="form-group">
     <td><label class="col-form-label" for="id_tempat">No.Telp</label></td>
    <td>
@@ -166,6 +175,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
   </tr>
   </div>
       </tr>
+
+
 
 
 

@@ -10,12 +10,7 @@ $result = mysql_query($query, $koneksi);
 $row = mysql_fetch_array($result);
 $last_id = $row["id_kategori_tempat"];
 
-$id_letter = substr($last_id, 0, 1);
-$id_num = substr($last_id, 1) + 1;
-$id_num = str_pad($id_num, 2, "0", STR_PAD_LEFT);
-$new_id = $id_letter . $id_num;
-
-
+$new_id = $last_id + 1;
 
 
 
