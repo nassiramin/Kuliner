@@ -1,3 +1,4 @@
+
 <?php
  
   include '../koneksi.php';
@@ -38,3 +39,4 @@
   }
   
   mysql_close();
+?>
