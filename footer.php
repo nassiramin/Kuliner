@@ -6,9 +6,9 @@
             <h4 class="white">Food Patrol</h4>
           <h3 class="white">Indonesia, Yogyakarta</h3>
           <ul class="list-inline">
-            <li><a href="" class="link-footer">Beranda</a></li>
-            <li><a href="" class="link-footer">Petunjuk Penggunaan</a></li>
-            <li><a href="" class="link-footer">Tentang</a></li>
+            <li><a href="home.php" class="link-footer">Beranda</a></li>
+            <li><a href="peta.php" class="link-footer">Peta Persebaran</a></li>
+            <li><a href="about.php" data-toggle="modal" data-target="#about" class="link-footer">Tentang</a></li>
           </ul>
           <h5 class="white">Copyright &copy; Nasir Amin 2017</h5>
           </div>

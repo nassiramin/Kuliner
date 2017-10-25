@@ -19,7 +19,7 @@
       
       <div class="row">
        
-                <img  src="img/logo-app.png" width="264" height="157" />
+                <img  src="img/logofixheader.png" width="25%" height="25%" />
               </div>
              
             </div>
@@ -44,14 +44,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.php"><i class="fa fa-home"></i> Halaman Depan</a></li>
+            <li><a href="home.php"><i class="fa fa-home"></i> Halaman Depan</a></li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-th-list"></i>Olah Data </a> 
                    <ul class="dropdown-menu">
             <li><a href="data.php">Data Kuliner</a></li>
             <li><a href="fasilitas.php">Data Fasilitas</a></li>
             <li><a href="kategori.php">Data Kategori</a></li>
              <li role="presentation" class="divider"></li>
-            <li><a href="#">Data User</a></li>
+            <li><a href="user.php">Data User</a></li>
           </ul>
        </li>
 
@@ -60,14 +60,11 @@
             <li><a href="tambah_resto.php">Tambah Kuliner</a></li>
             <li><a href="tambah_fasilitas.php">Tambah Fasilitas</a></li>
             <li><a href="tambah_kategori.php">Tambah Kategori</a></li>
-             <li role="presentation" class="divider"></li>
-            <li><a href="#">Tambah User</a></li>
           </ul>
        </li>
-
-          
             <li><a href="peta.php"><i class="fa fa-map-marker"></i> Peta Persebaran Kuliner</a></li>
             <li><a href="about.php" data-toggle="modal" data-target="#about"><i class="fa fa-user"></i> About</a></li>
+            <li><a href="logout.php" data-toggle="modal" data-target="#about"><i class="fa fa-sign-out"></i>Logout</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </nav>

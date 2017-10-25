@@ -146,7 +146,7 @@ initialize();
     <option><?php echo $id_kategori_tempat; ?></option>
 s
         <?php
-            while($row = mysql_fetch_assoc($ge1))
+            while($row = mysql_fetch_assoc($get1))
             {
             ?>
             <option  value = "<?php echo($row['id_kategori_tempat'])?>" >

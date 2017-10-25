@@ -1,23 +1,29 @@
-<?php 
-$title = "Pilih Kuliner";
-include_once "header.php"; ?>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-info panel-dashboard">
-            <div class="panel-heading centered">
-              <h2 class="panel-title"><strong> - Welcome Message - </strong></h2>
-            </div>
-            <div class="panel-body">
-              <div class="centered">
-                <h4>Selamat Datang di Sistem Admin Food Patrol.</h4>
-                <h4>Silakan memilih menu diatas untuk melanjutkan.</h4>
-              </div>
-            </div>
-            </div>
-          </div>
 
-        
-        </div>
-      </div>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>FoodPatrol Admin Login</title>
+  
+ <link href="css/login.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="body"></div>
+    <div class="grad"></div>
+    <div class="header">
+      <img src="img/logo-doang.png" width="115" height="170" class="logo">
+      <div>Food<span>Patrol</span></div>
     </div>
-    <?php include_once "footer.php"; ?>
+    <br>
+    <form action="login.php" method="post">
+    <div class="login">
+        <input type="text" placeholder="username" name="username" required><br>
+        <input type="password" placeholder="password" name="password" required><br>
+        <input type="submit" value="Login" name="login">
+    </div>
+     </form>
+
+
+  
+</body>
+</html>

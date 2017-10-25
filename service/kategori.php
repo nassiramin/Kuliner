@@ -9,11 +9,17 @@ include "../koneksi.php";
 	{
 		$json = array();
 		while($row = mysql_fetch_object($query)){
+			$tmpGambar = $row->url;
+			$row->url = "http://192.168.56.1/kuliner/upload_foto/kategori_tempat/" . $tmpGambar;
 			array_push($json, $row);
 		}
+
+		$tmp = new stdClass();
+		$tmp->list = $json;
+
 		$obj->status=true;
 		$obj->pesan="sukses";
-		$obj->data=$json;
+		$obj->data=$tmp;
 	}
 	else{
 		$obj->status=false;

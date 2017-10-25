@@ -4,11 +4,11 @@ include '../koneksi.php';
 
 class usr{}
   
-  $id_user = $_POST["id_user"];
   $nama_user = $_POST["nama_user"];
   $username = $_POST["username"];
   $password = $_POST["password"];
   $confirm_password = $_POST["confirm_password"];
+  $id_jenis_pengguna = $_POST["id_jenis_pengguna"];
   
   if ((empty($username))) { 
     $response = new usr();
@@ -27,18 +27,23 @@ class usr{}
     die(json_encode($response));
   } else {
     if (!empty($username) && $password == $confirm_password){
-      $query = mysql_query("INSERT INTO users (id_user,nama_user, username, password) VALUES('$id_user','$nama_user','$username','$password')");
-      
+      $query = mysql_query("INSERT INTO users (nama_user, username, password,id_jenis_pengguna) VALUES('$nama_user','$username','$password','$id_jenis_pengguna')");
+      $tmpObj = new stdClass();
+
       if ($query){
         $response = new usr();
         $response->status = true;
         $response->pesan = "Register berhasil, silahkan login.";
+        $response->data = $tmpObj;
+
         die(json_encode($response));
         
       } else { 
         $response = new usr();
         $response->status = false;
         $response->pesan = "Username sudah ada";
+        $response->data = $tmpObj;
+        
         die(json_encode($response));
       }
     } 

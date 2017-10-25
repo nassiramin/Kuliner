@@ -11,9 +11,11 @@ include "../koneksi.php";
 		while($row = mysql_fetch_object($query)){
 			array_push($json, $row);
 		}
+		$tmp = new stdClass();
+		$tmp->list = $json;
 		$obj->status=true;
 		$obj->pesan="sukses";
-		$obj->data=$json;
+		$obj->data=$tmp;
 	}
 	else{
 		$obj->status=false;

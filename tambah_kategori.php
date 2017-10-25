@@ -2,7 +2,7 @@
 $title = "Admin Food Patrol";
 include_once "header.php";
 include_once "koneksi.php"; 
-include 'koneksi.php';
+
 
 
 $query = "SELECT id_kategori_tempat FROM kategori_tempat ORDER BY id_kategori_tempat DESC LIMIT 1";

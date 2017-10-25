@@ -1,6 +1,5 @@
 <?php 
 $get=mysql_query("SELECT * FROM kategori_tempat");
-
 $id = $_GET['id'];
 include_once "ambildata_id.php";
 $obj = json_decode($data);
@@ -143,6 +142,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <?php echo $des ?>
    </td>
       </tr>
+          
       <tr>
         <div class="form-row">
           <tr>

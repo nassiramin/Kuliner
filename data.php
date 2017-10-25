@@ -35,7 +35,7 @@ include_once "koneksi.php";  ?>
                 <td><?php echo $no; ?></td>
                 <td><?php echo $item->nama_tempat; ?></td>
                 <td><?php echo $item->alamat; ?></td>
-                <td><?php echo $item->id_kategori_tempat; ?></td>
+                <td><?php echo $item->nama_kategori_tempat; ?></td>
                 <td><img src="upload_foto/<?php echo $item->url; ?>" width="150" height="150" class="img-thumbnail"/></td>
                 <td class="ctr">
                   <div align="center">

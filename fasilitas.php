@@ -17,7 +17,7 @@ include_once "koneksi.php";  ?>
                 <tr>
                   <th width="10%">No.</th>
                   <th width="10%" >ID Fasilitas </th>
-                  <th >Nama</th>
+                  <th width="10%">Nama</th>
                   <th width="10%">Icon</th>
                   <th width="15%">Aksi</th>
                 </tr>

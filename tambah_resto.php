@@ -2,7 +2,7 @@
 $title = "Admin Food Patrol";
 include_once "header.php";
 include_once "koneksi.php"; 
-include 'koneksi.php';
+
 $get1=mysql_query("SELECT * FROM kategori_tempat");
 $get2=mysql_query("SELECT * FROM harga");
 
