@@ -1,5 +1,6 @@
 <?php
 include "../koneksi.php";
+error_reporting(0);
  	
 	$id_tempat= $_POST['id_tempat'];
 	$query = mysql_query("SELECT * FROM tempat where id_kategori_tempat='$id_tempat'");
@@ -9,6 +10,10 @@ include "../koneksi.php";
 	{
 		$json = array();
 		while($row = mysql_fetch_object($query)){
+			$id= $row->id_tempat;
+			$queryJumlahReview = mysql_query("SELECT * FROM review where id_tempat='$id'");
+			$jumReview= mysql_num_rows($queryJumlahReview);
+			$row->jumlah_review=$jumReview;
 			array_push($json, $row);
 		}
 		$tmp = new stdClass();

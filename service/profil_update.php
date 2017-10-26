@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include "../koneksi.php";
  	
 
@@ -16,6 +17,7 @@ include "../koneksi.php";
 			$nama = $row['nama_user'];
 			$username_lama = $row['username'];
 			$password_lama = $row['password'];
+
 		}
 
 	

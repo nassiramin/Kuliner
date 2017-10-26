@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include "../koneksi.php";
  	
 	
@@ -10,7 +11,8 @@ include "../koneksi.php";
 		$json = array();
 		while($row = mysql_fetch_object($query)){
 			$tmpGambar = $row->url;
-			$row->url = "http://192.168.56.1/kuliner/upload_foto/kategori_tempat/" . $tmpGambar;
+			// $row->url = "http://192.168.56.1/kuliner/upload_foto/kategori_tempat/" . $tmpGambar;
+			$row->url = $tmpGambar;
 			array_push($json, $row);
 		}
 
