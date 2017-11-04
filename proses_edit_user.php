@@ -17,7 +17,7 @@ if (empty($url)){
 
 		//upload Photo
 		
-		move_uploaded_file ($_FILES['url']['tmp_name'],"upload_foto/icon_fasilitas/".$url);
+		move_uploaded_file ($_FILES['url']['tmp_name'],"upload_foto/foto_user/".$url);
 		
 	
 	//update

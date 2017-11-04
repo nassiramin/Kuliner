@@ -22,7 +22,7 @@ error_reporting(0);
   
   if (!empty($row)){
     $tmpObj = new stdClass();
-    $tmpObj->id = $row['id_user'];
+    $tmpObj->id_user = $row['id_user'];
     $tmpObj->username = $row['username'];
     $response = new usr();
     $response->status = true;

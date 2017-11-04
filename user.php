@@ -36,7 +36,7 @@ include_once "koneksi.php";  ?>
                 <td><?php echo $item->id_user; ?></td>
                 <td><?php echo $item->nama_user; ?></td>
                 <td><?php echo $item->username; ?></td>
-                <td><img src="upload_foto/icon_fasilitas/<?php echo $item->url; ?>" width="60" height="60" class="img-thumbnail"/></td>
+                <td><img src="upload_foto/foto_user/<?php echo $item->url; ?>" width="150" height="150" class="img-thumbnail"/></td>
                 <td class="ctr">
                   <div align="center">
                    

@@ -45,7 +45,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
             <li><a href="home.php"><i class="fa fa-home"></i> Halaman Depan</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-th-list"></i>Olah Data </a> 
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-th-list"></i> Olah Data </a> 
                    <ul class="dropdown-menu">
             <li><a href="data.php">Data Kuliner</a></li>
             <li><a href="fasilitas.php">Data Fasilitas</a></li>
