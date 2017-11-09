@@ -13,7 +13,7 @@ include_once "header.php";
             <div class="panel-body">
               <div id="map" style="width:100%;height:380px;"></div>
 
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBt7qo7XKG3z7EyWynjlc35W2nGsLtbILY"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAbXF62gVyhJOVkRiTHcVp_BkjPYDQfH5w"></script>
 
 <script type="text/javascript">
   function initialize() {
