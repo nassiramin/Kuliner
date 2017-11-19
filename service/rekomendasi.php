@@ -1,119 +1,289 @@
 <?php
+	include "../koneksi.php";
+	$fasilitas= $_POST ['fasilitas'];
+	$harga = $_POST ['harga'];
+	$menu = $_POST['menu'];
 
-include "../koneksi.php";
-$fasilitas= $_POST ['fasilitas'];
-$harga=$_POST ['harga'];
-$menu=$_POST['menu'];
+	$obj = new stdClass();
 
-$query = mysql_query("SELECT * from tempat");
-	// $sql = mysql_query($query);
-	$arrpilihan=[];		// menyimpan 3 tempat pilihan.
-	$arrPilihanFasilitas = [];	// Menyimpan fasilitas milik 3 tempat pilihan.
-	$arrTmp = [];		// Menyimpan seluruh tempat hasil query.
-	
-	// Buat nyimpan tempat per kelombok.
-	$arrKelompok1 = [];
-	$arrKelompok2 = [];
-	$arrKelompok3 = [];
+	$G_arr3TempatPilihan = [];		// menyimpan 3 tempat pilihan.
+	$G_arr3FasilitasPilihan = [];		// Menyimpan fasilitas milik 3 tempat pilihan.
+	$G_arrSemuaTempat = [];			// Menyimpan seluruh tempat hasil query.
+	$G_arrKelompok = [];
+	$G_arrC = [];
+	$G_JarakTerdekat = [];
 
-	// Penyimpanan tmp untuk pengurangan fasilitas.
-	$tmpPenguranganPilihan = [0, 0, 0, 0, 0, 0, 0];
-	$tmpPenguranganSaatIni = [0, 0, 0, 0, 0, 0, 0];
-	$tmpPenguranganHasil = [0, 0, 0, 0, 0, 0, 0];		
-
-
-	if (mysql_num_rows($query)>0)
-	{
-		// Memasukkan hasil query (semua tempat) ke arrTmp.
-		while ($data = mysql_fetch_array($query)) {
-			array_push($arrTmp, $data);		
-		}
-
-		// Pilih 3 tempat secara random.
-		for ($i=0; $i<3; $i++) { 
-			$index = rand(0, sizeof($arrTmp));		// Pilih angka random dari 0 - banyak tempat.
-			array_push($arrpilihan, $arrTmp[$index]);	// Masukkan tempat yg dipilih ke arrPilihan.
-			
-			// Ambil fasilitas tiap tempat pilihan.
-			$tmpObjsaatini = $arrTmp[$index];
-			$queryFasilitas = mysql_query("SELECT * From relasi_tempat_fasilitas where id_tempat = $tmpObjsaatini[id_tempat]");
-			
-			$tmpFasilitasPilihan = [];
-			while ($dataFasilitas = mysql_fetch_array($queryFasilitas)) {
-				array_push($tmpFasilitasPilihan, $dataFasilitas);		
-			}
-
-			// Menyimpan daftar fasilitas per tempat pilihan di arrPilihanFasilitas.
-			array_push($arrPilihanFasilitas, $tmpFasilitasPilihan);
-
-					
-			// Assign nilai ke tmpFasilitasPilihan.
-			for($y = 0; $y < sizeof($tmpFasilitasPilihan); $y++){
-				// $obj = $tmpFasilitasPilihan[$y];
-				$tmpPenguranganPilihan[$y] = 1;
-			}
-		}
-		
-		
-		// Pengelompokan tempat.
-		for ($i = 0; $i < sizeof($arrTmp); $i++) { 
-			$arrC = [];		// Menyimpan C1, C2, C3.
-			$tmpObjsaatini = $arrTmp[$i];	
-			$queryFasilitas = mysql_query('SELECT * From relasi_tempat_fasilitas where id_tempat = "$tmpObjsaatini[id_tempat]"');
-
-	
-			$tmpFasilitasTempatSaatIni = [];
-			while ($dataFasilitas = mysql_fetch_array($queryFasilitas)) {
-				array_push($tmpFasilitasTempatSaatIni, $dataFasilitas);		
-			}
-
-			// Assign nilai ke tmpFasilitasTempatSaatIni.
-			for($y = 0; $y < sizeof($tmpFasilitasTempatSaatIni); $y++){
-				// $obj = $tmpFasilitasTempatSaatIni[$y];	
-				$tmpPenguranganSaatIni[$y] = 1;
-			}
-
-			for($x = 0; $x < 7; $x++){
-				$tmpPenguranganHasil[$x] = $tmpPenguranganPilihan[$x] - $tmpPenguranganSaatIni[$x];
-
-				echo "pilihan: ";
-				echo $tmpPenguranganPilihan[$x];
-				echo "<br>";
-
-				echo "saat ini: ";
-				echo $tmpPenguranganSaatIni[$x];
-				echo "<br>";
-
-				echo "hasil: ";
-				echo $tmpPenguranganHasil[$x];
-				echo "<br>";
-			}
-
-			echo "<br><br>";
-
-			// Menghitung sesuai 3 tempat pilihan.
-			// for($j = 0; $j < 3; $j++){
-			// 	$tmpObj = $arrTmp[$i];		// Tempat saat ini.
-
-			// 	$tmpHasilPerhitungan = 
-			// 	pow(($tmpObj['id_harga'] - $arrpilihan['id_harga']), 2) + 
-			// 	pow(($tmpObj['id_jumlah_menu'] - $arrpilihan['id_jumlah_menu']), 2) +
-			// 	pow(($tmpObj['id_jumlah_menu'] - $arrpilihan['id_jumlah_menu']), 2);
-			
-			// 	$hasilPerhitungan = sqrt($tmpHasilPerhitungan);
-			// }
-		}
-			
-		
+	function jumTotFasilitas(){
+		$query = "SELECT * FROM fasilitas";
+		$sql = mysql_query($query);
+		return mysql_num_rows($sql);
 	}
-	else{
+
+	function getAllTempat(){
+		$tmpTempat = [];
+		$query = mysql_query("SELECT * from tempat");
+
+		if (mysql_num_rows($query) > 0){
+			// Memasukkan hasil query (semua tempat) ke arrTmp.
+			while ($data = mysql_fetch_array($query)) {
+				array_push($tmpTempat, $data);
+			}
+		}
+
+		return $tmpTempat;
+	}
+
+	function pilih3TempatRandom($tmpDataTempat){
+		$tmpArrPilihan = [];
+		global $G_arr3TempatPilihan;
+
+		for ($i = 0; $i < 3; $i++) {
+			$index = rand(0, sizeof($tmpDataTempat));		// Pilih angka random dari 0 - banyak tempat.
+			array_push($tmpArrPilihan, $tmpDataTempat[$index]);	// Masukkan tempat yg dipilih ke arrPilihan.
+		}
+
+		return $tmpArrPilihan;
+	}
+
+	// Ambil fasilitas tiap tempat pilihan (khusus untuk tempat pilihan).
+	function ambilFasilitasDariArr($tmpDataTempat){
+		$tmpHasil = [];
+
+		for($i = 0; $i < sizeof($tmpDataTempat); $i++){
+			$tmpFasilitasPilihan = [];
+
+			$tmpObjsaatini = $tmpDataTempat[$i];
+			$queryFasilitas = mysql_query("SELECT * FROM relasi_tempat_fasilitas
+											WHERE id_tempat = $tmpObjsaatini[id_tempat]");
+
+			while ($dataFasilitas = mysql_fetch_array($queryFasilitas)) {
+				array_push($tmpFasilitasPilihan, $dataFasilitas);
+			}
+
+			// Menyimpan daftar fasilitas per tempat pilihan.
+			array_push($tmpHasil, $tmpFasilitasPilihan);
+		}
+		return $tmpHasil;
+	}
+
+	// Ambil fasilitas khusus per tempat.
+	function ambilFasilitasDariObj($tmpDataTempat){
+		$tmpHasil = [];
+
+		$queryFasilitasObj = mysql_query("SELECT * FROM relasi_tempat_fasilitas
+										WHERE id_tempat = $tmpDataTempat[id_tempat]");
+
+		while ($dataFasilitas = mysql_fetch_array($queryFasilitasObj)) {
+			array_push($tmpHasil, $dataFasilitas);
+		}
+
+		return $tmpHasil;
+	}
+
+	// Konversi nilai fasilitas (1 ada 0 ga ada).
+	function konversiNilaiFasilitasPerTempat($tmpObj){
+		$tmpObjFasilitas = [];	// Tmp var untuk penyimpanan sementara ada fasilitas atau tidak.
+
+		// Pengulangan sebanyak jum fasilitas yang ada di db.
+		for($i = 0; $i < jumTotFasilitas(); $i++){
+			// cek untuk dapat nilai ada fasilitas tidak.
+			if($i < (sizeof($tmpObj) - 1)){
+				// $tmpPenguranganPilihan[$i] = $tmp3FasilitasPilihan[$i];
+				$tmpObjFasilitas[$i] = 2;	// ada
+			}else{
+				$tmpObjFasilitas[$i] = 1;	// ga ada
+			}
+		}
+
+		return $tmpObjFasilitas;
+	}
+
+	function perhitunganJarakKepusat($tmpSemuaTempat, $tmp3TempatPilihan, $tmp3FasilitasPilihan){
+		global $G_arrSemuaTempat;
+		global $G_arrC;
+
+		$tmpJarakKePusat = [];
+
+		// Penyimpanan tmp untuk pengurangan fasilitas.
+		$tmpPenguranganPilihan = [];
+		$arrC = [];		// Menyimpan C1, C2, C3.
+
+		// Assign nilai ke $tmpPenguranganPilihan.
+		for($x = 0; $x < 3; $x++){
+			// Penyimpanan sementara untuk objpilihan yang dolooping saat ini.
+			$tmpObjPilihan = $tmp3FasilitasPilihan[$x];
+			array_push($tmpPenguranganPilihan, 	konversiNilaiFasilitasPerTempat($tmpObjPilihan));
+		}
+
+		// Pengelompokan tempat.
+		for ($i = 0; $i < (sizeof($G_arrSemuaTempat) - 1); $i++) {
+			// Yang nyimpan arr [1,0,1, dst] -> konversi nilai fasilitas.
+			$tmpPenguranganSaatIni = [];
+			$tmpPenguranganHasil = [];
+
+			$tmpObjsaatini = $G_arrSemuaTempat[$i];
+			$tmpFasilitasTempatSaatIni = ambilFasilitasDariObj($tmpObjsaatini);
+			$tmpPenguranganSaatIni = konversiNilaiFasilitasPerTempat($tmpFasilitasTempatSaatIni);
+
+			// Perhitungan.
+			$tmpArrHasilAkhir = [];
+			$tmpJarakTerdekat = 100;
+
+			for($z = 0; $z < 3; $z++){
+				$tmpHasilAkar = 0;
+				for($x = 0; $x < jumTotFasilitas(); $x++){
+					$saatIni = $tmpPenguranganSaatIni[$x];
+					$pilihan = $tmpPenguranganPilihan[$z][$x];
+					$tmpPenguranganHasil[$x] = pow(($saatIni - $pilihan), 2);
+					$tmpHasilAkar += $tmpPenguranganHasil[$x];
+				}
+
+				$tmpHasilAkar = sqrt($tmpHasilAkar);
+				array_push($tmpArrHasilAkhir, $tmpHasilAkar);
+
+				// if untuk jarak terdekat.
+				if($tmpJarakTerdekat < $tmpHasilAkar){
+					$tmpJarakTerdekat = $tmpHasilAkar;
+				}
+			}
+			array_push($arrC, $tmpArrHasilAkhir);
+			array_push($tmpJarakKePusat, $tmpJarakTerdekat);
+		}
+
+		$G_arrC = $arrC;
+		// var_dump($arrC);
+		return $tmpJarakKePusat;
+	}
+
+	// Yang ini belum selesai
+	function pengelompokanData($tmpDataC, $tmpDataJarakTerdekat){
+		global $G_arrSemuaTempat;
+		$tmpArr = [];	// arr jarak terdekat.
+		// $tmpArrKelompok = [];
+
+		// Buat nyimpan tempat per kelombok.
+		$arrKelompok1 = [];
+		$arrKelompok2 = [];
+		$arrKelompok3 = [];
+
+		// cari jarak terdekat.
+		$tmp = 0;
+		for($x = 0; $x < sizeof($tmpDataC); $x++){
+			$tmpTempat = $tmpDataC[$x];
+			$tmpJarak = $tmpTempat[0];
+			for($i = 0; $i < 3; $i++){
+				if($tmpJarak > $tmpTempat[$i]){
+					$tmpJarak = $tmpTempat[$i];
+				}
+			}
+			array_push($tmpArr, $tmpJarak);
+		}
+
+		// Ulang sebanyak jumlah data.
+		for($i = 0; $i < (sizeof($G_arrSemuaTempat) - 1); $i++){
+			$tmpSaatIni = $G_arrSemuaTempat[$i];
+			$tmpObjC = $tmpDataC[$i];
+
+			for($j = 0; $j < 3; $j++){
+				if($tmpObjC[$j] == $tmpArr[$i]){
+					// $tmpArrKelompok[$i] = $j;
+					if($j == 0){
+						$arrKelompok1[$i] = $tmpSaatIni;
+					}else if($j == 1){
+						$arrKelompok2[$i] = $tmpSaatIni;
+					}else{
+						$arrKelompok3[$i] = $tmpSaatIni;
+					}
+					break;
+				}
+			}
+		}
+
+		// echo "<h1>tmpArr</h1>";
+		// var_dump($tmpArr);
+		// echo "<hr>";
+		// echo "<h1>data c</h1>";
+		// var_dump($tmpDataC);
+		// echo "<hr>";
+		// echo "<h1>kelompok 1</h1>";
+		// var_dump($arrKelompok1);
+		// echo "<hr>";
+		// echo "<h1>kelompok 2</h1>";
+		// var_dump($arrKelompok2);
+		// echo "<hr>";
+		// echo "<h1>kelompok 3</h1>";
+		// var_dump($arrKelompok3);
+		$tmpReturn = [];
+		array_push($tmpReturn, $arrKelompok1);
+		array_push($tmpReturn, $arrKelompok2);
+		array_push($tmpReturn, $arrKelompok3);
+		return $tmpReturn;
+	}
+
+	// function rataRataFasilitasPerKelompok($tmpArrKelompok){
+	// 	$tmpC = [];
+		$tmpJumFasilitas = 0;
+
+		for($i = 0; $i < (sizeof($tmpArrKelompok) - 1); $i++){
+
+			// $tmpJumFasilitas +=
+		}
+
+		return $tmpC;
+	}
+
+	// ================= MULAI DISINI =================.
+	$G_arrSemuaTempat = getAllTempat();
+
+	if (sizeof($G_arrSemuaTempat) > 0){
+		// Pilih 3 tempat random dari $G_arrSemuaTempat dan simpan ke $G_arr3TempatPilihan.
+		$G_arr3TempatPilihan = pilih3TempatRandom($G_arrSemuaTempat);
+		$G_arr3FasilitasPilihan = ambilFasilitasDariArr($G_arr3TempatPilihan);
+		$G_JarakTerdekat = perhitunganJarakKepusat($G_arrSemuaTempat, $G_arr3TempatPilihan, $G_arr3FasilitasPilihan);
+		$G_arrKelompok = pengelompokanData($G_arrC, $G_JarakTerdekat);
+
+
+		// SEMENTARA LANGSUNG.=============================
+		// Validasi (3 x). coba 3x dulu.
+		for($i = 0; $i < 3; $i++){
+			for($j = 0; $j < 3; $j++){
+				$tmpC = [];
+				$tmpKelompok = $G_arrKelompok[$j];
+
+			}
+
+			// Hitung c.
+			// c1 = ARR sepanjang jumlah fasilitas di db.
+			// c1 kolom 1 = (tempat1 fasilitas1 + tempat2 fasilitas 1 + ...) / jum kelompok 1.
+			// c1 kolom 2 = (tempat1 fasilitas2 + tempat2 fasilitas 2 + ...) / jum kelompok 1.
+			// c2, c3 sama
+
+			// hitung jarak terpendek
+				// perulangan sebanyak tempat.
+					// fasilitas saat ini - c1
+					// fasilitas saat ini - c2,
+					// fasilitas saat ini - c3,
+						// Terus ambil yang paling pendek, simpan.
+
+			// sekarang punya 52 jarak terpendek
+
+			// pengelompokan, cara sama.
+			// Kalau hasilnya sama seperti hasil sebelumnya, berarti berhasil. berhenti. kalau engga, ulangi perulangan berikutnya
+		}
+		// ==========================================================
+		var_dump($G_arrKelompok);
+
+		// Tinggal assign nilai ke tmp arr untuk pengurangan, terus hitung pengelompokan.
+
+		$obj->status = true;
+		$obj->pesan = "Berhasil mendapatkan rekomendasi";
+		$obj->data = new stdClass();
+	}else{
 		$obj->status = false;
 		$obj->pesan = "Tidak ada tempat";
-		$obj->data = null;	
+		$obj->data = new stdClass();
 	}
 
-
-	
-	
+	// echo json_encode($obj);
 	mysql_close($koneksi);
 ?>

@@ -2,23 +2,16 @@
 error_reporting(0);
 include "../koneksi.php";
 
+$id_tempat=$_POST['id_tempat'];
+$id_user=$_POST['id_user'];
+$currTime = date("Y_m_d_h_i_sa");
+$url = $_FILES["url"]["name"];
+$namaGambar = $currTime . $url;
 
-	$id_user = $_POST['id_user'];
-	$nama_user = $_POST['nama_user'];
-	$username = $_POST['username'];
-	$password = $_POST['password'];
-
-	$nama = "";
-	$username_lama = "";
-	$password_lama = "";
-    $currTime = date("Y_m_d_h_i_sa");
-	$url = $_FILES["url"]["name"];
-    $namaGambar = $currTime . $url;
-
-	function upload (){
+function upload (){
         global $namaGambar;
 
-		$target_dir = "/../upload_foto/foto_user/";
+		$target_dir = "/../upload_foto/foto_tempat/";
 		$target_file = realpath(dirname(__FILE__)) . $target_dir . $namaGambar;
 		$uploadOk = 1;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -67,30 +60,20 @@ include "../koneksi.php";
 
 	}
 
-	$query_tampil = mysql_query("SELECT * from users WHERE id_user='$id_user'");
-	while($row = mysql_fetch_array($query_tampil)){
-			$nama = $row['nama_user'];
-			$username_lama = $row['username'];
-			$password_lama = $row['password'];
-
-		}
-
-
-	$obj= new stdClass();
-
 	if (upload()){
-		$query = mysql_query("UPDATE users SET nama_user='$nama_user', username='$username', password='$password', url='$namaGambar' WHERE id_user='$id_user'");
+
+		$query = mysql_query("INSERT INTO relasi_foto_tempat (id_user,id_tempat,url)
+	VALUES ('$id_user','$id_tempat','$url')");
 		if ($query) {
 			$obj->status=true;
 			$obj->pesan="sukses";
 		}
 		else{
 			$obj->status=false;
-			$obj->pesan="update data gagal";
+			$obj->pesan="tambah foto gagal";
 		}
 	}
 	else{
-		$query_gagal = mysql_query("UPDATE users SET nama_user='$nama', username='$username_lama', password='$password_lama' WHERE id_user='$id_user'");
 		$obj->status=false;
 		$obj->pesan="gagal";
 	}
